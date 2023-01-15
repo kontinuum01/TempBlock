@@ -115,7 +115,7 @@ void loop (void)
   lcd.setCursor(18, 1);             //  Устанавливаем курсор в позицию (0 столбец, 1 строка)
   lcd.print(char(1)); 
   lcd.setCursor(4, 3);
-  lcd.print("Температура");
+  lcd.print("Temperature");
    
  }
   
