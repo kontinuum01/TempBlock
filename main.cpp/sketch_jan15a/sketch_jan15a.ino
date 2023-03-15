@@ -37,12 +37,13 @@ void setup (void)
   currentTime = millis();               // запускаем отчет времени
   sensors.begin();                      // запустить библиотеку
   Serial.begin(9600);                   // запускаем монитор порта
-//  Serial.print("Locating devices...");  // найти устройства на шине
-//  Serial.print("Found ");
   deviceCount = sensors.getDeviceCount();
-//  Serial.print(deviceCount, DEC);
-//  Serial.println(" devices.");
-//  Serial.println("");
+ /** Serial.print("Locating devices...");  // найти устройства на шине
+  Serial.print("Found ");
+  Serial.print(deviceCount, DEC);
+  Serial.println(" devices.");
+  Serial.println("");
+ **/ 
   lcd.setCursor(3, 1);              //  Устанавливаем курсор в позицию (0 столбец, 0 строка)
   lcd.print("INITIALIZATION");
   lcd.setCursor(7, 2);              //  Устанавливаем курсор в позицию (0 столбец, 0 строка)
