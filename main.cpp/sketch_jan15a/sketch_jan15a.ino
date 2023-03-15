@@ -62,18 +62,18 @@ void loop (void)
      if (millis() - currentTime > 5000){   //проверяем сколько прошло миллисекунд
          currentTime = millis();
     
-//    Serial.print("Sensor ");
-//    Serial.print(i+1);
-//    Serial.print(" : ");
-//    tempC = sensors.getTempCByIndex(i);
-//    Serial.print(tempC);
-//    Serial.print((char)223);        // напечатать символ градусов
-//    Serial.print("C  |  ");
-//    Serial.print(DallasTemperature::toFahrenheit(tempC));
-//    Serial.print((char)223);        // напечатать символ градусов
-//    Serial.println("F");
-//    Serial.println(""); 
-  
+/**    Serial.print("Sensor ");
+    Serial.print(i+1);
+    Serial.print(" : ");
+    tempC = sensors.getTempCByIndex(i);
+    Serial.print(tempC);
+    Serial.print((char)223);        // напечатать символ градусов
+    Serial.print("C  |  ");
+    Serial.print(DallasTemperature::toFahrenheit(tempC));
+    Serial.print((char)223);        // напечатать символ градусов
+    Serial.println("F");
+    Serial.println(""); 
+**/  
   lcd.createChar(1, simvol);        //  создаем символ градусов
   lcd.setCursor(0, 0);              //  Устанавливаем курсор в позицию (0 столбец, 0 строка)
   lcd.print("1: ");
@@ -87,39 +87,39 @@ void loop (void)
   lcd.setCursor(0, 1);               //  Устанавливаем курсор в позицию (0 столбец, 1 строка)
   lcd.print("2: ");                 
   lcd.setCursor(2, 1);
-  tempC = sensors.getTempCByIndex(1);//  Устанавливаем курсор в позицию (0 столбец, 0 строка)
+  tempC = sensors.getTempCByIndex(1);
   lcd.print(tempC);
   lcd.createChar(1, simvol);
   lcd.setCursor(7, 1);
   lcd.print(char(1));
   lcd.setCursor(8, 1 );
   lcd.print("C");
-  lcd.setCursor(0, 2);              //  Устанавливаем курсор в позицию (0 столбец, 0 строка)
+  lcd.setCursor(0, 2);              
   lcd.print("3: ");
   lcd.setCursor(2, 2);
   tempC = sensors.getTempCByIndex(2);
   lcd.print(tempC);
   lcd.setCursor(8, 2);
   lcd.print("C");                    //  Выводим текст "С", начиная с установленной позиции курсора
-  lcd.setCursor(7, 2);               //  Устанавливаем курсор в позицию (0 столбец, 1 строка)
+  lcd.setCursor(7, 2);               
   lcd.print(char(1));              
-  lcd.setCursor(11, 0);              //  Устанавливаем курсор в позицию (0 столбец, 0 строка)
+  lcd.setCursor(11, 0);              
   lcd.print("4: ");
   lcd.setCursor(13, 0);
   tempC = sensors.getTempCByIndex(3);
   lcd.print(tempC);
   lcd.setCursor(19, 0);
   lcd.print("C");                   //  Выводим текст "С", начиная с установленной позиции курсора
-  lcd.setCursor(18, 0);             //  Устанавливаем курсор в позицию (0 столбец, 1 строка)
+  lcd.setCursor(18, 0);             
   lcd.print(char(1));  
-  lcd.setCursor(11, 1);              //  Устанавливаем курсор в позицию (0 столбец, 0 строка)
+  lcd.setCursor(11, 1);              
   lcd.print("5: ");
   lcd.setCursor(13, 1);
   tempC = sensors.getTempCByIndex(4);
   lcd.print(tempC);
   lcd.setCursor(19, 1);
   lcd.print("C");                   //  Выводим текст "C", начиная с установленной позиции курсора
-  lcd.setCursor(18, 1);             //  Устанавливаем курсор в позицию (18 столбец, 1 строка)
+  lcd.setCursor(18, 1);             
   lcd.print(char(1)); 
   lcd.setCursor(7, 3);
   lcd.print("ELTOM");
