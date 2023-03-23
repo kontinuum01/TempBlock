@@ -13,10 +13,10 @@ OneWire oneWire(ONE_WIRE_BUS);
 // передать ссылку на oneWire библиотеке DallasTemperature
 DallasTemperature sensors(&oneWire);
 
-int deviceCount = 0;       // переменная датчиков
-float tempC;               // переменная температуры
-unsigned long currentTime; // Переменная текущего времени
-
+int deviceCount = 0;                                       // переменная датчиков
+int tempC, tempC1, tempC2, tempC3, tempC4;                 // переменная температуры
+unsigned long currentTime;                                // Переменная текущего времени
+unsigned long currentTime1;
 
 // создаем свой символ градуса и присваиваем ему имя "simvol"
 byte simvol[8] = {
@@ -32,20 +32,26 @@ byte simvol[8] = {
 
 void setup (void)
 {
-  lcd.init();                           //  Инициируем работу с LCD дисплеем
-  lcd.backlight();                      //  Включаем подсветку LCD дисплея
-  currentTime = millis();               // запускаем отчет времени
-  sensors.begin();                      // запустить библиотеку
-  Serial.begin(9600);                   // запускаем монитор порта
+  lcd.init();                             //  Инициируем работу с LCD дисплеем
+  lcd.backlight();                        //  Включаем подсветку LCD дисплея
+  currentTime = millis();                 // запускаем отчет времени
+  sensors.begin();                        // запустить библиотеку
+  Serial.begin(9600);                     // запускаем монитор порта
+  deviceCount = sensors.getDeviceCount();
 //  Serial.print("Locating devices...");  // найти устройства на шине
 //  Serial.print("Found ");
-  deviceCount = sensors.getDeviceCount();
 //  Serial.print(deviceCount, DEC);
 //  Serial.println(" devices.");
 //  Serial.println("");
-  lcd.setCursor(3, 1);              //  Устанавливаем курсор в позицию (0 столбец, 0 строка)
+  lcd.setCursor(4, 1);
+  lcd.print("418137.010");
+  lcd.setCursor(4, 2);
+  lcd.print("ver.1.3.0");
+  delay(2000);
+  lcd.clear();
+  lcd.setCursor(3, 1);              
   lcd.print("INITIALIZATION");
-  lcd.setCursor(7, 2);              //  Устанавливаем курсор в позицию (0 столбец, 0 строка)
+  lcd.setCursor(7, 2);              
   lcd.print("SENSORS");
   delay(3000);
   lcd.clear();
@@ -54,15 +60,20 @@ void setup (void)
 
 void loop (void)
 { 
-        
-  sensors.requestTemperatures(); // послать команду всем датчикам для преобразования температуры
-    
-   for (int i = 0;  i < deviceCount;  i++) // отобразить температуру с каждого датчика
-  {
-     if (millis() - currentTime > 5000){   //проверяем сколько прошло миллисекунд
-         currentTime = millis();
-    
-/**    Serial.print("Sensor ");
+       
+  sensors.requestTemperatures();       // послать команду всем датчикам для преобразования температуры
+  tempC = sensors.getTempCByIndex(0);  // присваиваем переменной значение с датчика
+  tempC1 = sensors.getTempCByIndex(1);  
+  tempC2 = sensors.getTempCByIndex(2);  
+  tempC3 = sensors.getTempCByIndex(3);  
+  tempC4 = sensors.getTempCByIndex(4);  
+  lcd.createChar(1, simvol);           //  создаем символ градусов
+  
+
+/**    
+         for (int i = 0;  i < deviceCount;  i++) // отобразить температуру с каждого датчика
+  {  
+    Serial.print("Sensor ");
     Serial.print(i+1);
     Serial.print(" : ");
     tempC = sensors.getTempCByIndex(i);
@@ -73,60 +84,62 @@ void loop (void)
     Serial.print((char)223);        // напечатать символ градусов
     Serial.println("F");
     Serial.println(""); 
-**/  
-  lcd.createChar(1, simvol);        //  создаем символ градусов
-  lcd.setCursor(0, 0);              //  Устанавливаем курсор в позицию (0 столбец, 0 строка)
-  lcd.print("1: ");
-  lcd.setCursor(2, 0);
-  tempC = sensors.getTempCByIndex(0);
-  lcd.print(tempC);
-  lcd.setCursor(7, 0);
-  lcd.print(char(1));
-  lcd.setCursor(8, 0);
-  lcd.print("C"); 
-  lcd.setCursor(0, 1);               //  Устанавливаем курсор в позицию (0 столбец, 1 строка)
-  lcd.print("2: ");                 
-  lcd.setCursor(2, 1);
-  tempC = sensors.getTempCByIndex(1);
-  lcd.print(tempC);
-  lcd.createChar(1, simvol);
-  lcd.setCursor(7, 1);
-  lcd.print(char(1));
-  lcd.setCursor(8, 1 );
-  lcd.print("C");
-  lcd.setCursor(0, 2);              
-  lcd.print("3: ");
-  lcd.setCursor(2, 2);
-  tempC = sensors.getTempCByIndex(2);
-  lcd.print(tempC);
-  lcd.setCursor(8, 2);
-  lcd.print("C");                    //  Выводим текст "С", начиная с установленной позиции курсора
-  lcd.setCursor(7, 2);               
-  lcd.print(char(1));              
-  lcd.setCursor(11, 0);              
-  lcd.print("4: ");
-  lcd.setCursor(13, 0);
-  tempC = sensors.getTempCByIndex(3);
-  lcd.print(tempC);
-  lcd.setCursor(19, 0);
-  lcd.print("C");                   //  Выводим текст "С", начиная с установленной позиции курсора
-  lcd.setCursor(18, 0);             
-  lcd.print(char(1));  
-  lcd.setCursor(11, 1);              
-  lcd.print("5: ");
-  lcd.setCursor(13, 1);
-  tempC = sensors.getTempCByIndex(4);
-  lcd.print(tempC);
-  lcd.setCursor(19, 1);
-  lcd.print("C");                   //  Выводим текст "C", начиная с установленной позиции курсора
-  lcd.setCursor(18, 1);             
-  lcd.print(char(1)); 
-  lcd.setCursor(7, 3);
-  lcd.print("ELTOM");
+    }
+ **/ 
+   if (millis() - currentTime > 3000){   //проверяем сколько прошло миллисекунд
+         currentTime = millis();
+ 
   
-  }
+  lcd.setCursor(1, 0);               //  Устанавливаем курсор в позицию (2 столбец, 1 строка)
+  lcd.print("1:");                   //  печатаем порядковый номер датчика
+  lcd.print(tempC);                  //  печатаем температуру
+  lcd.print(char(1));                //  печатаем знак градуса
+  lcd.print("C  ");                  //  печатаем знак цельсия
+  
+  lcd.setCursor(1, 1);               //  Устанавливаем курсор в позицию (2 столбец, 2 строка)
+  lcd.print("2:");                 
+  lcd.print(tempC1);
+  lcd.print(char(1));
+  lcd.print("C  ");
+  
+  lcd.setCursor(1, 2);               //  Устанавливаем курсор в позицию (2 столбец,  3строка)
+  lcd.print("3:");                 
+  lcd.print(tempC2);
+  lcd.print(char(1));
+  lcd.print("C  ");
+  
+  lcd.setCursor(12, 0);               //  Устанавливаем курсор в позицию (13 столбец, 1 строка)
+  lcd.print("4:");                 
+  lcd.print(tempC3);
+  lcd.print(char(1));
+  lcd.print("C  ");
+
+  lcd.setCursor(12, 1);               //  Устанавливаем курсор в позицию (13 столбец, 2 строка)
+  lcd.print("5:");                 
+  lcd.print(tempC4);
+  lcd.print(char(1));
+  lcd.print("C  ");
+  
+  lcd.setCursor(7, 3);                //  Устанавливаем курсор в позицию (8 столбец, 4 строка)
+  lcd.print("ELTOM");
+ 
+   }
+   if (millis() - currentTime1 > 100000){   //проверяем сколько прошло миллисекунд
+         currentTime1 = millis();
+         lcd.setCursor(3, 3);
+         lcd.print("I'm");
+         lcd.setCursor(13, 3);
+         lcd.print("JONE");
+         delay(5000);
+         lcd.setCursor(3, 3);
+         lcd.print("   ");
+         lcd.setCursor(13, 3);
+         lcd.print("    ");
+}
 }
 
-}
+
+
+
 
     
