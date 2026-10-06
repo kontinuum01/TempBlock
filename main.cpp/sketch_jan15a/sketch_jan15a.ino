@@ -38,11 +38,13 @@ void setup (void)
   sensors.begin();                        // запустить библиотеку
   Serial.begin(9600);                     // запускаем монитор порта
   deviceCount = sensors.getDeviceCount();
-//  Serial.print("Locating devices...");  // найти устройства на шине
-//  Serial.print("Found ");
-//  Serial.print(deviceCount, DEC);
-//  Serial.println(" devices.");
-//  Serial.println("");
+/**  
+  Serial.println("Locating devices...");  // найти устройства на шине
+  Serial.println("Found ");
+  Serial.println(deviceCount, DEC);
+  Serial.println(" devices."); 
+  Serial.println("");
+**/
   lcd.setCursor(4, 1);
   lcd.print("418137.010");
   lcd.setCursor(4, 2);
@@ -60,7 +62,7 @@ void setup (void)
 
 void loop (void)
 { 
-       
+      
   sensors.requestTemperatures();       // послать команду всем датчикам для преобразования температуры
   tempC = sensors.getTempCByIndex(0);  // присваиваем переменной значение с датчика
   tempC1 = sensors.getTempCByIndex(1);  
@@ -70,8 +72,8 @@ void loop (void)
   lcd.createChar(1, simvol);           //  создаем символ градусов
   
 
-/**    
-         for (int i = 0;  i < deviceCount;  i++) // отобразить температуру с каждого датчика
+    
+/**         for (int i = 0;  i < deviceCount;  i++) // отобразить температуру с каждого датчика
   {  
     Serial.print("Sensor ");
     Serial.print(i+1);
@@ -84,8 +86,9 @@ void loop (void)
     Serial.print((char)223);        // напечатать символ градусов
     Serial.println("F");
     Serial.println(""); 
-    }
- **/ 
+    } 
+    **/
+  
    if (millis() - currentTime > 1000){   //проверяем сколько прошло миллисекунд
          currentTime = millis();
  
@@ -133,7 +136,7 @@ void loop (void)
   lcd.setCursor(11, 1);               //  Устанавливаем курсор в позицию (13 столбец, 2 строка)
   lcd.print("5:");                 
   lcd.print(tempC4);
-  if (tempC1 == -127){                //  условие для проверки наличия датчика
+  if (tempC4 == -127){                //  условие для проверки наличия датчика
     lcd.setCursor(11, 1);
     lcd.print("5:---");
   }
