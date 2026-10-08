@@ -43,7 +43,7 @@ void setup(void) {
 
   // Заставка: Прошивка/Артикул
   lcd.setCursor(4, 1);  lcd.print("418137.010");
-  lcd.setCursor(4, 2);  lcd.print("ver.1.5.0");
+  lcd.setCursor(4, 2);  lcd.print("ver.2.0.0");
   delay(2000);
   lcd.clear();
   
